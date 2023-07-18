@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
-export default function SearchBar({ fetchWeather }) {
+export default function SearchBar({ fetchWeather, fetchHourlyWeather }) {
 	const [cityName, setCityName] = useState("");
 
 	return (
@@ -9,14 +9,17 @@ export default function SearchBar({ fetchWeather }) {
 			<TextInput
 				placeholder="Enter City Name"
 				value={cityName}
-				onChange={(text) => setCityName(text)}
+				onChangeText={(text) => setCityName(text)}
 				color="white"
 			></TextInput>
 			<EvilIcons
 				name="search"
 				size={24}
 				color="white"
-				onPress={() => fetchWeather(cityName)}
+				onPress={() => {
+					fetchWeather(cityName);
+					fetchHourlyWeather(cityName);
+				}}
 			/>
 		</View>
 	);
@@ -33,5 +36,6 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		marginHorizontal: 10,
 		backgroundColor: "rgba(0,0,0,0.5)",
+		paddingHorizontal: 10,
 	},
 });
